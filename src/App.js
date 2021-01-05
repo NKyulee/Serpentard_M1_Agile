@@ -182,7 +182,9 @@ export default class App extends React.Component {
             <Box>
               <NestedList types={this.state.typesList} ></NestedList>
             </Box>
-            <Box></Box>
+            <Box>
+              <DisplayMap></DisplayMap>
+            </Box>
           </Box>
         </Box>
         <Box style={Styles.footerContainer} component="div">

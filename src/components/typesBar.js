@@ -1,57 +1,58 @@
 import React from 'react';
 import Box from '@material-ui/core/Box'
-import Menu from 'material-ui-popup-state/HoverMenu'
-import MenuItem from '@material-ui/core/MenuItem'
+import Typography from '@material-ui/core/Typography'
+import Popover from 'material-ui-popup-state/HoverPopover'
 import Button from '@material-ui/core/Button'
+import 'leaflet/dist/leaflet.css';
 import {
   usePopupState,
   bindHover,
-  bindMenu,
+  bindPopover,
 } from 'material-ui-popup-state/hooks'
-
-
 export default function NestedList(props) {
-
-    const popupState = usePopupState({ variant: 'popover', popupId: 'demoMenu' })
-
+  const popupState = usePopupState({
+    variant: 'popover',
+    popupId: 'demoPopover',
+  })
+  const DisplayTypes = []
+  const SubType = (subtype) => (
+    <Typography {...bindHover(popupState)} style={{ margin: 10 }}>
+      {subtype.name}
+    </Typography>
+  )
+  const Type = (type) => {
     const DisplaySubTypes = []
-    const SubType = (subtype) => (
-        <MenuItem onClick={popupState.close} {...bindHover(popupState)}>
-        {subtype.name}
-      </MenuItem>
-    )
-
-    const DisplayTypes = []
-    const Type = (type) => (
-        <React.Fragment>
-        <Button variant="contained" {...bindHover(popupState)}>
-            {type.name}
-        </Button>
-        <Menu
-        {...bindMenu(popupState)}
-        getContentAnchorEl={null}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-      >
-        {DisplaySubTypes}
-      </Menu>
-        
-        
-    </React.Fragment>
-    );
-
-
-
-    for (let t of props.types) {
-        DisplayTypes.push(Type(t))
-        for (let s of t.subTypes) {
-            DisplaySubTypes.push(SubType(s))
-        }
+    for (let s of type.subTypes) {
+      DisplaySubTypes.push(SubType(s))
     }
-
     return (
-        <Box component="div" >
-            {DisplayTypes}
-        </Box>
+      <React.Fragment>
+        <Button variant="contained" {...bindHover(popupState)}>
+          {type.name}
+        </Button>
+        <Popover
+          {...bindPopover(popupState)}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+          disableRestoreFocus
+        >
+          {DisplaySubTypes}
+      </Popover>
+      </React.Fragment>
     )
+  };
+  for (let t of props.types) {
+    DisplayTypes.push(Type(t))
+  }
+  return (
+    <Box component="div" >
+      {DisplayTypes}
+    </Box>
+  )
 }
