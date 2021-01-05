@@ -5,6 +5,7 @@ import DateAndTimePickers from './components/datePicker'
 import Filters from './components/tagsMenu'
 import DisplayMap from './components/map'
 import NestedList from './components/typesBar'
+import Footer from "./components/footer";
 import './App.css';
 
 const TagsList = [
@@ -166,6 +167,7 @@ export default class App extends React.Component {
       },
       footerContainer: {
         backgroundColor: "green",
+        height: "100%",
         width: "100%",
       }
     }
