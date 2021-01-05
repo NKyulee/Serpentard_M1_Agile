@@ -3,6 +3,7 @@ import Container from '@material-ui/core/Container'
 import SearchAppBar from './components/navbar';
 import DateAndTimePickers from './components/datePicker'
 import Filters from './components/tagsMenu'
+import Footer from "./components/footer";
 import './App.css';
 
 export default class App extends React.Component {
@@ -43,7 +44,7 @@ export default class App extends React.Component {
       },
       footerContainer: {
         backgroundColor: "green",
-        height: "100px",
+        height: "100%",
         width: "100%",
 
       }
@@ -60,9 +61,9 @@ export default class App extends React.Component {
             Map
           </Container>
         </Container>
-        <Container style={Styles.footerContainer}>
-          footer
-        </Container>
+       
+        <Footer style={Styles.footerContainer}/>
+        
       </Container >
     );
   }
