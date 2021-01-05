@@ -189,10 +189,8 @@ export default class App extends React.Component {
             </Box>
           </Box>
         </Box>
-        <Box style={Styles.footerContainer} component="div">
-          footer
-        </Box>
-      </Box >
+        <Footer style={Styles.footerContainer}/>
+      </Box>
     );
   }
 }
