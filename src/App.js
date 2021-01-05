@@ -3,6 +3,7 @@ import Box from '@material-ui/core/Box'
 import SearchAppBar from './components/navbar';
 import DateAndTimePickers from './components/datePicker'
 import Filters from './components/tagsMenu'
+import DisplayMap from './components/map'
 import './App.css';
 
 const TagsList = [
@@ -96,7 +97,7 @@ export default class App extends React.Component {
         width: "100%",
       }
     }
-    
+
     return (
       <Box style={Styles.container} component="div">
         <SearchAppBar></SearchAppBar>
@@ -106,7 +107,7 @@ export default class App extends React.Component {
             <Filters style={Styles.filters} tags={this.state.tagsList} changeTags={this.changeTags}></Filters>
           </Box>
           <Box style={Styles.bodyRight}  component="div">
-            Map
+            <DisplayMap></DisplayMap>
           </Box>
         </Box>
         <Box style={Styles.footerContainer}  component="div">
