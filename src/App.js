@@ -8,31 +8,31 @@ import NestedList from './components/typesBar'
 import './App.css';
 
 const TagsList = [
-  { keyTag: 0, checked: true, name: "Ados" },
+  { keyTag: 0, checked: false, name: "Ados" },
   { keyTag: 1, checked: false, name: "Bibliothèques" },
   { keyTag: 2, checked: false, name: "Cinéma" },
   { keyTag: 3, checked: false, name: "En famille" },
-  { keyTag: 4, checked: true, name: "Enfants" },
+  { keyTag: 4, checked: false, name: "Enfants" },
   { keyTag: 5, checked: false, name: "English" },
-  { keyTag: 6, checked: true, name: "Étudiants" },
-  { keyTag: 7, checked: true, name: "Expos" },
+  { keyTag: 6, checked: false, name: "Étudiants" },
+  { keyTag: 7, checked: false, name: "Expos" },
   { keyTag: 8, checked: false, name: "Geek" },
   { keyTag: 9, checked: false, name: "Gourmand" },
   { keyTag: 10, checked: false, name: "Insolite" },
-  { keyTag: 11, checked: true, name: "Les Nuits" },
+  { keyTag: 11, checked: false, name: "Les Nuits" },
   { keyTag: 12, checked: false, name: "Musique" },
   { keyTag: 13, checked: false, name: "Noël" },
-  { keyTag: 14, checked: true, name: "Plein air" },
+  { keyTag: 14, checked: false, name: "Plein air" },
   { keyTag: 15, checked: false, name: "Queer Lgbt" },
   { keyTag: 16, checked: false, name: "Solidaire" },
-  { keyTag: 17, checked: true, name: "Sport" },
-  { keyTag: 18, checked: true, name: "Urbain" },
-  { keyTag: 19, checked: true, name: "Végétalisons Paris" }
+  { keyTag: 17, checked: false, name: "Sport" },
+  { keyTag: 18, checked: false, name: "Urbain" },
+  { keyTag: 19, checked: false, name: "Végétalisons Paris" }
 ]
 
 const TypesList = [
   {
-    keyType: 0, selected: true, name: "Animations",
+    keyType: 0, selected: false, name: "Animations",
     subTypes: [
       { keySubType: 0, selected: false, name: "Atelier/Cours" },
       { keySubType: 1, selected: false, name: "Autre animation" },
@@ -85,7 +85,7 @@ const TypesList = [
     ]
   },
   {
-    keyType: 4, selected: true, name: "Spectacles",
+    keyType: 4, selected: false, name: "Spectacles",
     subTypes: [
       { keySubType: 0, selected: false, name: "Autre spectacle" },
       { keySubType: 1, selected: false, name: "Cirque/Art de la Rue" },
