@@ -1,76 +1,44 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import {Card, CardContent, Typography, Checkbox, Container } from '@material-ui/core';
+import React  from 'react';
+import {Card, CardContent, Typography, Checkbox, Box } from '@material-ui/core';
 
+export default function Filters(props) {
 
-const useStyles = makeStyles((theme) => ({
-  container: {
-    display: 'block',
-    flexWrap: 'nowrap',
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 200,
-  },
-}));
+  const Styles = {
+    tagsContainer: {
+      overflow: "auto",
+      flexGrow: "1",
+      padding: "0 20px"
+    },
+    tags: {
+      marginBottom: "20px"
+    }
+  }
 
-
-const Tags = [
-    "Ados",
-    "Bibliothèques",
-    "Cinéma",
-    "En famille",
-    "Enfants",
-    "English",
-    "Étudiants",
-    "Expos",
-    "Geek",
-    "Gourmand",
-    "Insolite",
-    "Les Nuits",
-    "Musique",
-    "Noël",
-    "Plein air",
-    "Queer Lgbt",
-    "Solidaire",
-    "Sport",
-    "Urbain",
-    "Végétalisons Paris",
-]
-
-
-export default function Filters() {
-  const classes = useStyles();
-  const [checked, setChecked] = React.useState(true);
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-  };
   const DisplayTags = []
-  const Tag = (id, tag) => (
-    <Card key={id}>
+
+  const Tag = (tag) => (
+    <Card key={tag.keyTag} style={Styles.tags}>
         <CardContent>
             <Typography component="h2">
-                {tag}
+                {tag.name}
             </Typography>
-            <Checkbox
-        checked={checked}
-        onChange={handleChange}
-        inputProps={{ 'aria-label': 'primary checkbox' }}
+            <Checkbox 
+              color="primary"
+              checked={tag.checked}
+              onChange={event => props.changeTags(tag.keyTag, event.target.checked)}
+              inputProps={{ 'aria-label': 'secondary checkbox' }}
       />
         </CardContent>
     </Card>
   )
 
-    for (let i = 0, j = Tags.length; i < j; i++) {
-        DisplayTags.push(Tag(i, Tags[i]))
+    for (let t of props.tags) {
+        DisplayTags.push(Tag(t))
     }
 
-
-
   return (
-    <Container>
+    <Box component="div" style={Styles.tagsContainer}>
         {DisplayTags}
-    </Container>
+    </Box>
   );
 }

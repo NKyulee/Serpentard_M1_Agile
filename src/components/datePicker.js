@@ -1,11 +1,14 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    display: 'block',
+    display: 'flex',
     flexWrap: 'nowrap',
+    width: "100%",
+    padding: "40px 20px",
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -14,20 +17,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DateAndTimePickers() {
+export default function DateAndTimePickers(props) {
   const classes = useStyles();
 
   return (
     <form className={classes.container} noValidate>
-      <TextField
-        id="datetime-local"
-        label="Next appointment"
-        type="datetime-local"
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        <DatePicker
+            value={props.selectedDate} 
+            onChange={event => props.dateChange(event.target.value)}
+          />
+​
+      </MuiPickersUtilsProvider>
     </form>
   );
 }
