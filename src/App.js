@@ -60,9 +60,7 @@ export default class App extends React.Component {
             Map
           </Container>
         </Container>
-        <Container style={Styles.footerContainer}>
-          footer
-        </Container>
+        <Footer style={Styles.footerContainer}/>
       </Container >
     );
   }
