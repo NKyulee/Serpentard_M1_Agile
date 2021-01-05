@@ -74,7 +74,7 @@ export default function SearchAppBar() {
 					<div>
 						<form>
 							<TextField
-								placeholder="Search an event..."
+								placeholder="Search an event.."
 								classes={{
 									root: classes.inputRoot,
 									input: classes.inputInput
