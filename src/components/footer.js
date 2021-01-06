@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import { Grid, Paper } from "@material-ui/core";
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,18 +24,22 @@ export default function Footer() {
         <div className={classes.root}>
             <Grid container spacing={0}>
                 <Grid item xs={4}>
-                   <Paper className={classes.paper}>F.A.Q</Paper>
+                   <Paper className={classes.paper}><a href="https://docs.google.com/forms/d/1PBKcix4n69oMGIMELuRSZFX5QsDtWPKIMHZeasvc_4Y/edit">F.A.Q</a></Paper>
                 </Grid>
                 <Grid item xs={4}>
-                   <Paper className={classes.paper}>Mentions legal</Paper>
+                   <Paper className={classes.paper}><a href="https://www.cnil.fr/fr/rgpd-exemples-de-mentions-dinformation">Mentions légales</a></Paper>
                 </Grid>
                 <Grid item xs={4}>
-                    <Paper className={classes.paper}>Nous contacter</Paper>
+                    <Paper className={classes.paper}><a href="mailto:eventinparis@yahoo.fr">Nous contacter</a></Paper>
+                   
                 </Grid>
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>MSD - Copyright 2021</Paper>
                 </Grid>
-            </Grid>
+            
+            </Grid>         
+
+
         </div>
     );
 }
