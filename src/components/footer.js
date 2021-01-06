@@ -26,13 +26,13 @@ export default function Footer() {
                    <Paper className={classes.paper}>F.A.Q</Paper>
                 </Grid>
                 <Grid item xs={4}>
-                   <Paper className={classes.paper}>Mentions legal</Paper>
+                   <Paper className={classes.paper}>Mentions légales</Paper>
                 </Grid>
                 <Grid item xs={4}>
                     <Paper className={classes.paper}>Nous contacter</Paper>
                 </Grid>
                 <Grid item xs={12}>
-                    <Paper className={classes.paper}>MSD - Copyright 2021</Paper>
+                    <Paper className={classes.paper}>MDS - Copyright 2021</Paper>
                 </Grid>
             </Grid>
         </div>

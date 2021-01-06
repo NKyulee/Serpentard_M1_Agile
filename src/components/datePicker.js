@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'nowrap',
     width: "100%",
     padding: "40px 20px",
+    backgroundColor: "white",
   },
   textField: {
     marginLeft: theme.spacing(1),

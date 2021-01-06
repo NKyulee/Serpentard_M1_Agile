@@ -1,5 +1,6 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
+import Typography from '@material-ui/core/Typography'
 import SearchAppBar from './components/navbar';
 import DateAndTimePickers from './components/datePicker'
 import Filters from './components/tagsMenu'
@@ -7,6 +8,7 @@ import DisplayMap from './components/map'
 import NestedList from './components/typesBar'
 import Footer from "./components/footer";
 import './App.css';
+import { Nbre } from './components/map'
 
 const TagsList = [
   { keyTag: 0, checked: false, name: "Ados" },
@@ -100,9 +102,8 @@ const TypesList = [
   },
 ]
 
-
 export default class App extends React.Component {
-
+  
   constructor() {
     super()
 
@@ -116,6 +117,7 @@ export default class App extends React.Component {
     this.changeDate = this.changeDate.bind(this)
   }
 
+  
   changeTags(key, status) {
     let tags = this.state.tagsList
     tags.find(t => t.keyTag === key).checked = status
@@ -151,13 +153,12 @@ export default class App extends React.Component {
       },
       bodyLeft: {
         width: "20%",
-        backgroundColor: "red",
+        backgroundColor: "lightgray",
         display: "flex",
         flexDirection: "column",
       },
       bodyRight: {
         flexGrow: "1",
-        backgroundColor: "blue",
       },
       filters: {
         height: "100%",
@@ -169,7 +170,14 @@ export default class App extends React.Component {
         backgroundColor: "green",
         height: "100%",
         width: "100%",
-      }
+      },
+      resultBar: {
+        height: "100%",
+        flexGrow: "1",
+        backgroundColor: "white",
+        padding: "5px",
+        textAlign: "center",
+      },
     }
 
     return (
@@ -181,15 +189,20 @@ export default class App extends React.Component {
             <Filters style={Styles.filters} tags={this.state.tagsList} changeTags={this.changeTags}></Filters>
           </Box>
           <Box style={Styles.bodyRight} component="div">
-            <Box>
+            <Box component="div">
               <NestedList types={this.state.typesList} ></NestedList>
             </Box>
             <Box>
+              <Typography style={Styles.resultBar}>
+                {Nbre} résultats correspondent à votre recherche.
+              </Typography>
+            </Box>
+            <Box component="div">
               <DisplayMap></DisplayMap>
             </Box>
           </Box>
         </Box>
-        <Footer style={Styles.footerContainer}/>
+        <Footer style={Styles.footerContainer} />
       </Box>
     );
   }
