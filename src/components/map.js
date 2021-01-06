@@ -21,7 +21,7 @@ export default function DisplayMap() {
 
   const mark = new Icon({
     iconUrl: "https://i.ibb.co/bW8DFDx/pin.png",
-    iconSize: [50, 70 ]
+    iconSize: [50, 70]
   });
 
 

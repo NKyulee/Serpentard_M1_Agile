@@ -143,7 +143,7 @@ export default class App extends React.Component {
         flexDirection: "column",
         height: "100vh",
         padding: "0",
-        overflow: "hidden",
+        overflow: "hidden"
       },
       bodyContent: {
         display: "flex",
