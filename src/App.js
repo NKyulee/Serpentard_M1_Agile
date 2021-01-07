@@ -11,29 +11,7 @@ import axios from 'axios'
 import './App.css';
 import { Nbre } from './components/map'
 
-/*const TagsList = [
-	{ keyTag: 0, checked: false, name: 'Ados' },
-	{ keyTag: 1, checked: false, name: 'Bibliothèques' },
-	{ keyTag: 2, checked: false, name: 'Cinéma' },
-	{ keyTag: 3, checked: false, name: 'En famille' },
-	{ keyTag: 4, checked: false, name: 'Enfants' },
-	{ keyTag: 5, checked: false, name: 'English' },
-	{ keyTag: 6, checked: false, name: 'Étudiants' },
-	{ keyTag: 7, checked: false, name: 'Expos' },
-	{ keyTag: 8, checked: false, name: 'Geek' },
-	{ keyTag: 9, checked: false, name: 'Gourmand' },
-	{ keyTag: 10, checked: false, name: 'Insolite' },
-	{ keyTag: 11, checked: false, name: 'Les Nuits' },
-	{ keyTag: 12, checked: false, name: 'Musique' },
-	{ keyTag: 13, checked: false, name: 'Noël' },
-	{ keyTag: 14, checked: false, name: 'Plein air' },
-	{ keyTag: 15, checked: false, name: 'Queer Lgbt' },
-	{ keyTag: 16, checked: false, name: 'Solidaire' },
-	{ keyTag: 17, checked: false, name: 'Sport' },
-	{ keyTag: 18, checked: false, name: 'Urbain' },
-	{ keyTag: 19, checked: false, name: 'Végétalisons Paris' }
-];*/
-
+ 
 const TypesList = [
 	{
 		keyType: 0,
@@ -160,17 +138,18 @@ export default class App extends React.Component {
   	async searchEventByTags(tagsSelected){
 		//recuperation des evenements par tags
 		var params = new URLSearchParams();
-		tagsSelected.map((tags) => {params.append('refine.tags', tags.name)})
-		//params.append('refine.tags', 'Enfants');
-		//params.append('refine.tags', 'Bibliothèques');
+		tagsSelected.map((tags) => { 
+			if(tags.checked === true) params.append('refine.tags', tags.name) 
+		})
 		await axios.get('https://opendata.paris.fr/api/records/1.0/search/?dataset=que-faire-a-paris-&q=', {
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		params: params
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			params: params
 		})
 		.then((response) => {
 			this.setState({ events: response.data.records });
+			console.log(this.state.events);
 		})
 		.catch((error) => console.log(error))
 
@@ -250,7 +229,7 @@ render() {
               </Typography>
             </Box>
             <Box component="div">
-              <DisplayMap></DisplayMap>
+              <DisplayMap position={this.state.events}></DisplayMap>
             </Box>
           </Box>
         </Box>
