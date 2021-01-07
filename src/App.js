@@ -1,5 +1,6 @@
-import React from 'react';
-import Box from '@material-ui/core/Box';
+import React from 'react'
+import Box from '@material-ui/core/Box'
+import Typography from '@material-ui/core/Typography'
 import SearchAppBar from './components/navbar';
 import DateAndTimePickers from './components/datePicker';
 import Filters from './components/tagsMenu';
@@ -8,6 +9,7 @@ import NestedList from './components/typesBar';
 import Footer from './components/footer';
 import axios from 'axios'
 import './App.css';
+import { Nbre } from './components/map'
 
 /*const TagsList = [
 	{ keyTag: 0, checked: false, name: 'Ados' },
@@ -157,8 +159,11 @@ export default class App extends React.Component {
 
   	async searchEventByTags(tagsSelected){
 		//recuperation des evenements par tags
+		console.log(tagsSelected);
 		var params = new URLSearchParams();
-		tagsSelected.map((tags) => {params.append('refine.tags', tags.name)})
+		tagsSelected.map((tags) => { 
+			if(tags.checked === true)  params.append('refine.tags', tags.name) 
+		})
 		//params.append('refine.tags', 'Enfants');
 		//params.append('refine.tags', 'Bibliothèques');
 		await axios.get('https://opendata.paris.fr/api/records/1.0/search/?dataset=que-faire-a-paris-&q=', {
@@ -169,6 +174,7 @@ export default class App extends React.Component {
 		})
 		.then((response) => {
 			this.setState({ events: response.data.records });
+			console.log(this.state.events);
 		})
 		.catch((error) => console.log(error))
 
@@ -191,7 +197,7 @@ export default class App extends React.Component {
 		});
 	}
 
-	render() {
+render() {
 		const Styles = {
 			container: {
 				display: 'flex',
@@ -229,25 +235,31 @@ export default class App extends React.Component {
 			}
 		};
 
-		return (
-			<Box style={Styles.container} component="div">
-				<SearchAppBar />
-				<Box style={Styles.bodyContent} component="div">
-					<Box style={Styles.bodyLeft} component="div">
-						<DateAndTimePickers changeDate={this.changeDate} selectedDate={this.state.selectedDate} />
-						<Filters style={Styles.filters} tags={this.state.tagsList} changeTags={this.changeTags} />
-					</Box>
-					<Box style={Styles.bodyRight} component="div">
-						<Box>
-							<NestedList types={this.state.typesList} />
-						</Box>
-						<Box>
-							<DisplayMap />
-						</Box>
-					</Box>
-				</Box>
-				<Footer style={Styles.footerContainer} />
-			</Box>
-		);
-	}
+
+    return (
+      <Box style={Styles.container} component="div">
+        <SearchAppBar></SearchAppBar>
+        <Box style={Styles.bodyContent} component="div">
+          <Box style={Styles.bodyLeft} component="div">
+            <DateAndTimePickers changeDate={this.changeDate} selectedDate={this.state.selectedDate}></DateAndTimePickers>
+            <Filters style={Styles.filters} tags={this.state.tagsList} changeTags={this.changeTags}></Filters>
+          </Box>
+          <Box style={Styles.bodyRight} component="div">
+            <Box component="div">
+              <NestedList types={this.state.typesList} ></NestedList>
+            </Box>
+            <Box>
+              <Typography style={Styles.resultBar}>
+                {Nbre} résultats correspondent à votre recherche.
+              </Typography>
+            </Box>
+            <Box component="div">
+              <DisplayMap position={this.state.events}></DisplayMap>
+            </Box>
+          </Box>
+        </Box>
+        <Footer style={Styles.footerContainer} />
+      </Box>
+    );
+  }
 }

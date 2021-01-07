@@ -12,7 +12,7 @@ import {
 export default function NestedList(props) {
   const popupState = usePopupState({
     variant: 'popover',
-    popupId: 'demoPopover',
+    popupId: 1,
   })
   const DisplayTypes = []
   const SubType = (subtype) => (
@@ -30,7 +30,8 @@ export default function NestedList(props) {
         <Button variant="contained" {...bindHover(popupState)}>
           {type.name}
         </Button>
-        <Popover
+        <Popover 
+          popupId={type.keyType}
           {...bindPopover(popupState)}
           anchorOrigin={{
             vertical: 'bottom',
