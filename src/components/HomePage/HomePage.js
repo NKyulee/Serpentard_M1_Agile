@@ -97,10 +97,9 @@ export class HomePage extends Component {
 				display: 'flex',
 				flexGrow: '1',
 				padding: '0',
-				overflow: 'hidden'
+				overflow: 'auto'
 			},
 			bodyLeft: {
-				width: '20%',
 				backgroundColor: 'lightgray',
 				display: 'flex',
 				flexDirection: 'column'

@@ -15,13 +15,12 @@ export default class App extends React.Component {
 				display: 'flex',
 				flexDirection: 'column',
 				height: '100vh',
-				padding: '0',
-				overflow: 'hidden'
+				padding: '0'
 			},
 			footerContainer: {
-				backgroundColor: 'green',
+				position: 'sticky',
 				height: '100%',
-				width: '100%'
+				overflow: 'auto'
 			}
 		};
 

@@ -30,7 +30,7 @@ export default function DisplayMap(props) {
 	));
 	return (
 		<Box>
-			<MapContainer center={[ 48.866667, 2.333333 ]} zoom={12}>
+			<MapContainer style={{ height: '70vh' }} center={[ 48.866667, 2.333333 ]} zoom={12}>
 				<TileLayer
 					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 					attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
