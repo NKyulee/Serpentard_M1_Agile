@@ -22,7 +22,7 @@ export default function DisplayMap(props) {
 
   const mark = new Icon({
     iconUrl: "https://i.ibb.co/bW8DFDx/pin.png",
-    iconSize: [50, 70 ]
+    iconSize: [50, 70]
   });
 
 
@@ -40,6 +40,7 @@ export default function DisplayMap(props) {
 
   return (
     <Box>
+      
       <MapContainer center={[48.866667, 2.333333]} zoom={12}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

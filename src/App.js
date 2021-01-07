@@ -174,40 +174,46 @@ export default class App extends React.Component {
 
 render() {
 		const Styles = {
-			container: {
-				display: 'flex',
-				flexDirection: 'column',
-				height: '100vh',
-				padding: '0',
-				overflow: 'hidden'
-			},
-			bodyContent: {
-				display: 'flex',
-				flexGrow: '1',
-				padding: '0',
-				overflow: 'hidden'
-			},
-			bodyLeft: {
-				width: '20%',
-				backgroundColor: 'red',
-				display: 'flex',
-				flexDirection: 'column'
-			},
-			bodyRight: {
-				flexGrow: '1',
-				backgroundColor: 'blue'
-			},
-			filters: {
-				height: '100%',
-				overflow: 'auto',
-				overflowY: 'scroll',
-				flexGrow: '1'
-			},
-			footerContainer: {
-				backgroundColor: 'green',
-				height: '100%',
-				width: '100%'
-			}
+      container: {
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh",
+        padding: "0",
+        overflow: "hidden"
+      },
+      bodyContent: {
+        display: "flex",
+        flexGrow: "1",
+        padding: "0",
+        overflow: "hidden"
+      },
+      bodyLeft: {
+        width: "20%",
+        backgroundColor: "lightgray",
+        display: "flex",
+        flexDirection: "column",
+      },
+      bodyRight: {
+        flexGrow: "1",
+      },
+      filters: {
+        height: "100%",
+        overflow: "auto",
+        overflowY: "scroll",
+        flexGrow: "1",
+      },
+      footerContainer: {
+        backgroundColor: "green",
+        height: "100%",
+        width: "100%",
+      },
+      resultBar: {
+        height: "100%",
+        flexGrow: "1",
+        backgroundColor: "white",
+        padding: "5px",
+        textAlign: "center",
+      },
 		};
 
 
