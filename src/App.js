@@ -2,142 +2,148 @@ import React from 'react'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import SearchAppBar from './components/navbar';
-import DateAndTimePickers from './components/datePicker'
-import Filters from './components/tagsMenu'
-import DisplayMap from './components/map'
-import NestedList from './components/typesBar'
-import Footer from "./components/footer";
+import DateAndTimePickers from './components/datePicker';
+import Filters from './components/tagsMenu';
+import DisplayMap from './components/map';
+import NestedList from './components/typesBar';
+import Footer from './components/footer';
 import './App.css';
 import { Nbre } from './components/map'
 
 const TagsList = [
-  { keyTag: 0, checked: false, name: "Ados" },
-  { keyTag: 1, checked: false, name: "Bibliothèques" },
-  { keyTag: 2, checked: false, name: "Cinéma" },
-  { keyTag: 3, checked: false, name: "En famille" },
-  { keyTag: 4, checked: false, name: "Enfants" },
-  { keyTag: 5, checked: false, name: "English" },
-  { keyTag: 6, checked: false, name: "Étudiants" },
-  { keyTag: 7, checked: false, name: "Expos" },
-  { keyTag: 8, checked: false, name: "Geek" },
-  { keyTag: 9, checked: false, name: "Gourmand" },
-  { keyTag: 10, checked: false, name: "Insolite" },
-  { keyTag: 11, checked: false, name: "Les Nuits" },
-  { keyTag: 12, checked: false, name: "Musique" },
-  { keyTag: 13, checked: false, name: "Noël" },
-  { keyTag: 14, checked: false, name: "Plein air" },
-  { keyTag: 15, checked: false, name: "Queer Lgbt" },
-  { keyTag: 16, checked: false, name: "Solidaire" },
-  { keyTag: 17, checked: false, name: "Sport" },
-  { keyTag: 18, checked: false, name: "Urbain" },
-  { keyTag: 19, checked: false, name: "Végétalisons Paris" }
-]
+	{ keyTag: 0, checked: false, name: 'Ados' },
+	{ keyTag: 1, checked: false, name: 'Bibliothèques' },
+	{ keyTag: 2, checked: false, name: 'Cinéma' },
+	{ keyTag: 3, checked: false, name: 'En famille' },
+	{ keyTag: 4, checked: false, name: 'Enfants' },
+	{ keyTag: 5, checked: false, name: 'English' },
+	{ keyTag: 6, checked: false, name: 'Étudiants' },
+	{ keyTag: 7, checked: false, name: 'Expos' },
+	{ keyTag: 8, checked: false, name: 'Geek' },
+	{ keyTag: 9, checked: false, name: 'Gourmand' },
+	{ keyTag: 10, checked: false, name: 'Insolite' },
+	{ keyTag: 11, checked: false, name: 'Les Nuits' },
+	{ keyTag: 12, checked: false, name: 'Musique' },
+	{ keyTag: 13, checked: false, name: 'Noël' },
+	{ keyTag: 14, checked: false, name: 'Plein air' },
+	{ keyTag: 15, checked: false, name: 'Queer Lgbt' },
+	{ keyTag: 16, checked: false, name: 'Solidaire' },
+	{ keyTag: 17, checked: false, name: 'Sport' },
+	{ keyTag: 18, checked: false, name: 'Urbain' },
+	{ keyTag: 19, checked: false, name: 'Végétalisons Paris' }
+];
 
 const TypesList = [
-  {
-    keyType: 0, selected: false, name: "Animations",
-    subTypes: [
-      { keySubType: 0, selected: false, name: "Atelier/Cours" },
-      { keySubType: 1, selected: false, name: "Autre animation" },
-      { keySubType: 2, selected: false, name: "Balade" },
-      { keySubType: 3, selected: false, name: "Conférence/Débat" },
-      { keySubType: 4, selected: false, name: "Lecture/Rencontre" },
-      { keySubType: 5, selected: false, name: "Loisirs/jeux" },
-      { keySubType: 6, selected: false, name: "Stage" },
-      { keySubType: 7, selected: false, name: "Visite guidée" },
-    ]
-  },
-  {
-    keyType: 1, selected: false, name: "Concerts",
-    subTypes: [
-      { keySubType: 0, selected: false, name: "Autre concert" },
-      { keySubType: 1, selected: false, name: "Chanson française" },
-      { keySubType: 2, selected: false, name: "Classique" },
-      { keySubType: 3, selected: false, name: "Folk" },
-      { keySubType: 4, selected: false, name: "Hip-Hop" },
-      { keySubType: 5, selected: false, name: "Jazz" },
-      { keySubType: 6, selected: false, name: "Musiques du monde" },
-      { keySubType: 7, selected: false, name: "Pop/Variété" },
-      { keySubType: 8, selected: false, name: "Rock" },
-      { keySubType: 9, selected: false, name: "Electronique" },
-    ]
-  },
-  {
-    keyType: 2, selected: false, name: "Evénements",
-    subTypes: [
-      { keySubType: 0, selected: false, name: "Autre événement" },
-      { keySubType: 1, selected: false, name: "Brocante/Marché" },
-      { keySubType: 2, selected: false, name: "Festival/Cycle" },
-      { keySubType: 3, selected: false, name: "Fête/Parade" },
-      { keySubType: 4, selected: false, name: "Salon" },
-      { keySubType: 5, selected: false, name: "Soirée/Bal" },
-    ]
-  },
-  {
-    keyType: 3, selected: false, name: "Expositions",
-    subTypes: [
-      { keySubType: 0, selected: false, name: "Art contemporain" },
-      { keySubType: 1, selected: false, name: "Autre expo" },
-      { keySubType: 2, selected: false, name: "Beaux-Arts" },
-      { keySubType: 3, selected: false, name: "Design/Mode" },
-      { keySubType: 4, selected: false, name: "Histoire/Civilisations" },
-      { keySubType: 5, selected: false, name: "Illustrations/BD" },
-      { keySubType: 6, selected: false, name: "Photographie" },
-      { keySubType: 7, selected: false, name: "Sciences/Techniques" },
-      { keySubType: 8, selected: false, name: "Street-art" },
-    ]
-  },
-  {
-    keyType: 4, selected: false, name: "Spectacles",
-    subTypes: [
-      { keySubType: 0, selected: false, name: "Autre spectacle" },
-      { keySubType: 1, selected: false, name: "Cirque/Art de la Rue" },
-      { keySubType: 2, selected: false, name: "Danse" },
-      { keySubType: 3, selected: false, name: "Humour" },
-      { keySubType: 4, selected: false, name: "Jeune public" },
-      { keySubType: 5, selected: false, name: "Opéra/Musical" },
-      { keySubType: 6, selected: false, name: "Projection" },
-      { keySubType: 7, selected: false, name: "Théâtre" },
-    ]
-  },
-]
+	{
+		keyType: 0,
+		selected: false,
+		name: 'Animations',
+		subTypes: [
+			{ keySubType: 0, selected: false, name: 'Atelier/Cours' },
+			{ keySubType: 1, selected: false, name: 'Autre animation' },
+			{ keySubType: 2, selected: false, name: 'Balade' },
+			{ keySubType: 3, selected: false, name: 'Conférence/Débat' },
+			{ keySubType: 4, selected: false, name: 'Lecture/Rencontre' },
+			{ keySubType: 5, selected: false, name: 'Loisirs/jeux' },
+			{ keySubType: 6, selected: false, name: 'Stage' },
+			{ keySubType: 7, selected: false, name: 'Visite guidée' }
+		]
+	},
+	{
+		keyType: 1,
+		selected: false,
+		name: 'Concerts',
+		subTypes: [
+			{ keySubType: 0, selected: false, name: 'Autre concert' },
+			{ keySubType: 1, selected: false, name: 'Chanson française' },
+			{ keySubType: 2, selected: false, name: 'Classique' },
+			{ keySubType: 3, selected: false, name: 'Folk' },
+			{ keySubType: 4, selected: false, name: 'Hip-Hop' },
+			{ keySubType: 5, selected: false, name: 'Jazz' },
+			{ keySubType: 6, selected: false, name: 'Musiques du monde' },
+			{ keySubType: 7, selected: false, name: 'Pop/Variété' },
+			{ keySubType: 8, selected: false, name: 'Rock' },
+			{ keySubType: 9, selected: false, name: 'Electronique' }
+		]
+	},
+	{
+		keyType: 2,
+		selected: false,
+		name: 'Evénements',
+		subTypes: [
+			{ keySubType: 0, selected: false, name: 'Autre événement' },
+			{ keySubType: 1, selected: false, name: 'Brocante/Marché' },
+			{ keySubType: 2, selected: false, name: 'Festival/Cycle' },
+			{ keySubType: 3, selected: false, name: 'Fête/Parade' },
+			{ keySubType: 4, selected: false, name: 'Salon' },
+			{ keySubType: 5, selected: false, name: 'Soirée/Bal' }
+		]
+	},
+	{
+		keyType: 3,
+		selected: false,
+		name: 'Expositions',
+		subTypes: [
+			{ keySubType: 0, selected: false, name: 'Art contemporain' },
+			{ keySubType: 1, selected: false, name: 'Autre expo' },
+			{ keySubType: 2, selected: false, name: 'Beaux-Arts' },
+			{ keySubType: 3, selected: false, name: 'Design/Mode' },
+			{ keySubType: 4, selected: false, name: 'Histoire/Civilisations' },
+			{ keySubType: 5, selected: false, name: 'Illustrations/BD' },
+			{ keySubType: 6, selected: false, name: 'Photographie' },
+			{ keySubType: 7, selected: false, name: 'Sciences/Techniques' },
+			{ keySubType: 8, selected: false, name: 'Street-art' }
+		]
+	},
+	{
+		keyType: 4,
+		selected: false,
+		name: 'Spectacles',
+		subTypes: [
+			{ keySubType: 0, selected: false, name: 'Autre spectacle' },
+			{ keySubType: 1, selected: false, name: 'Cirque/Art de la Rue' },
+			{ keySubType: 2, selected: false, name: 'Danse' },
+			{ keySubType: 3, selected: false, name: 'Humour' },
+			{ keySubType: 4, selected: false, name: 'Jeune public' },
+			{ keySubType: 5, selected: false, name: 'Opéra/Musical' },
+			{ keySubType: 6, selected: false, name: 'Projection' },
+			{ keySubType: 7, selected: false, name: 'Théâtre' }
+		]
+	}
+];
 
 export default class App extends React.Component {
-  
-  constructor() {
-    super()
+	constructor() {
+		super();
 
-    this.state = {
-      tagsList: TagsList,
-      typesList: TypesList,
-      selectedDate: new Date()
-    }
+		this.state = {
+			tagsList: TagsList,
+			typesList: TypesList,
+			selectedDate: new Date()
+		};
 
-    this.changeTags = this.changeTags.bind(this)
-    this.changeDate = this.changeDate.bind(this)
-  }
+		this.changeTags = this.changeTags.bind(this);
+		this.changeDate = this.changeDate.bind(this);
+	}
 
-  
-  changeTags(key, status) {
-    let tags = this.state.tagsList
-    tags.find(t => t.keyTag === key).checked = status
-    this.setState({
-      tagsList: tags,
-      selectedDate: this.state.selectedDate
-    });
-  }
+	changeTags(key, status) {
+		let tags = this.state.tagsList;
+		tags.find((t) => t.keyTag === key).checked = status;
+		this.setState({
+			tagsList: tags,
+			selectedDate: this.state.selectedDate
+		});
+	}
 
-  changeDate(newDate) {
-    this.setState({
-      tagsList: this.state.tagsList,
-      selectedDate: newDate
-    });
-  }
+	changeDate(newDate) {
+		this.setState({
+			tagsList: this.state.tagsList,
+			selectedDate: newDate
+		});
+	}
 
-  render() {
-
-    const Styles = {
-
+render() {
+		const Styles = {
       container: {
         display: "flex",
         flexDirection: "column",
@@ -178,7 +184,8 @@ export default class App extends React.Component {
         padding: "5px",
         textAlign: "center",
       },
-    }
+		};
+
 
     return (
       <Box style={Styles.container} component="div">

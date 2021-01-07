@@ -39,6 +39,7 @@ export default function DisplayMap() {
 
   return (
     <Box>
+      
       <MapContainer center={[48.866667, 2.333333]} zoom={12}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
