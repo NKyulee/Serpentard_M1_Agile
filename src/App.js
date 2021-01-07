@@ -229,7 +229,7 @@ render() {
               </Typography>
             </Box>
             <Box component="div">
-              <DisplayMap position={this.state.events}></DisplayMap>
+              <DisplayMap></DisplayMap>
             </Box>
           </Box>
         </Box>
