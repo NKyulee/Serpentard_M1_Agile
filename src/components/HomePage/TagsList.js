@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { Card, CardContent, Typography, Checkbox, Box } from '@material-ui/core';
 
-export default function Filters(props) {
+export default function TagsList(props) {
 	const Styles = {
 		tagsContainer: {
 			overflow: 'auto',
