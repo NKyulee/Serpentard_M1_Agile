@@ -100,9 +100,11 @@ export class HomePage extends Component {
 				overflow: 'auto'
 			},
 			bodyLeft: {
-				backgroundColor: 'lightgray',
+				paddingTop: '10px',
+				backgroundColor: 'lightgrey',
 				display: 'flex',
-				flexDirection: 'column'
+				flexDirection: 'column',
+				alignItems: 'center'
 			},
 			bodyRight: {
 				flexGrow: '1'
@@ -116,7 +118,7 @@ export class HomePage extends Component {
 			resultBar: {
 				height: '100%',
 				flexGrow: '1',
-				backgroundColor: 'white',
+				backgroundColor: 'darkgrey',
 				padding: '5px',
 				textAlign: 'center'
 			}
@@ -124,7 +126,13 @@ export class HomePage extends Component {
 		return (
 			<Box style={Styles.bodyContent} component="div">
 				<Box style={Styles.bodyLeft} component="div">
-					<DateAndTimePickers changeDate={this.changeDate} selectedDate={this.state.selectedDate} />
+					<Typography variant="h5">Filter By</Typography>
+					<DateAndTimePickers
+						style={{ backgroundColor: 'lightgrey' }}
+						changeDate={this.changeDate}
+						selectedDate={this.state.selectedDate}
+					/>
+					<Typography>Select tags</Typography>
 					<TagsList style={Styles.filters} tags={this.state.tagsList} changeTags={this.changeTags} />
 				</Box>
 				<Box style={Styles.bodyRight} component="div">
