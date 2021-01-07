@@ -7,10 +7,11 @@ import Filters from './components/tagsMenu';
 import DisplayMap from './components/map';
 import NestedList from './components/typesBar';
 import Footer from './components/footer';
+import axios from 'axios'
 import './App.css';
 import { Nbre } from './components/map'
 
-const TagsList = [
+/*const TagsList = [
 	{ keyTag: 0, checked: false, name: 'Ados' },
 	{ keyTag: 1, checked: false, name: 'Bibliothèques' },
 	{ keyTag: 2, checked: false, name: 'Cinéma' },
@@ -31,7 +32,7 @@ const TagsList = [
 	{ keyTag: 17, checked: false, name: 'Sport' },
 	{ keyTag: 18, checked: false, name: 'Urbain' },
 	{ keyTag: 19, checked: false, name: 'Végétalisons Paris' }
-];
+];*/
 
 const TypesList = [
 	{
@@ -117,14 +118,63 @@ export default class App extends React.Component {
 		super();
 
 		this.state = {
-			tagsList: TagsList,
+			tagsList: [],
 			typesList: TypesList,
+			events: [],
 			selectedDate: new Date()
 		};
 
 		this.changeTags = this.changeTags.bind(this);
 		this.changeDate = this.changeDate.bind(this);
-	}
+  	}
+  
+
+
+	async componentDidMount(){
+		//recuperation des tags
+		let newTagsList = []
+		await axios.get('https://opendata.paris.fr/api/records/1.0/search/?dataset=que-faire-a-paris-&q=', {
+		headers: {
+			'Content-Type': 'application/json'
+		},  
+		params: {
+			facet: "tags"
+		}
+		})
+		.then((response) => {
+			response.data.facet_groups[0].facets.map((tags, index) => {
+				newTagsList.push({
+					keyTag: index,
+					checked: false,
+					name: tags.name
+				})
+			})
+			this.setState({
+				tagsList: newTagsList
+			})
+			//console.log(this.state.tagsList);
+		})
+		.catch((error) => console.log(error))
+  	}
+
+  	async searchEventByTags(tagsSelected){
+		//recuperation des evenements par tags
+		var params = new URLSearchParams();
+		tagsSelected.map((tags) => {params.append('refine.tags', tags.name)})
+		//params.append('refine.tags', 'Enfants');
+		//params.append('refine.tags', 'Bibliothèques');
+		await axios.get('https://opendata.paris.fr/api/records/1.0/search/?dataset=que-faire-a-paris-&q=', {
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		params: params
+		})
+		.then((response) => {
+			this.setState({ events: response.data.records });
+		})
+		.catch((error) => console.log(error))
+
+  	}
 
 	changeTags(key, status) {
 		let tags = this.state.tagsList;
@@ -133,6 +183,7 @@ export default class App extends React.Component {
 			tagsList: tags,
 			selectedDate: this.state.selectedDate
 		});
+		this.searchEventByTags(this.state.tagsList)
 	}
 
 	changeDate(newDate) {
