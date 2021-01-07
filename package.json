@@ -10,6 +10,7 @@
     "@testing-library/jest-dom": "^5.11.8",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",
+    "axios": "^0.21.1",
     "google-maps-react": "^2.0.6",
     "leaflet": "^1.7.1",
     "material-ui-popup-state": "^1.7.1",

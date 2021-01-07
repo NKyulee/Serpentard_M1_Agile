@@ -1,4 +1,5 @@
 import React from "react";
+
 import Box from '@material-ui/core/Box'
 import { Marker, Popup, TileLayer, MapContainer } from "react-leaflet";
 import { Icon } from "leaflet";
@@ -17,7 +18,7 @@ const positions = [
 
 export const Nbre = positions.length
 
-export default function DisplayMap() {
+export default function DisplayMap(props) {
 
   const mark = new Icon({
     iconUrl: "https://i.ibb.co/bW8DFDx/pin.png",
@@ -25,10 +26,10 @@ export default function DisplayMap() {
   });
 
 
-  const listPos = positions.map((position) =>
-    <Marker icon={mark} position={position.latlong} riseOnHover={true}>
+  const listPos = props.position.map((position) =>
+    <Marker icon={mark} position={position.fields.lat_lon} riseOnHover={true}>
       <Popup>
-        Hello {position.popupText}
+        Hello
       </Popup>
     </Marker>
   );
