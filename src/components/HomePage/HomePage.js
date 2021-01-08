@@ -14,7 +14,6 @@ import { TypesList } from '../../assets/TypesList';
 export class HomePage extends Component {
 	constructor() {
 		super();
-
 		this.state = {
 			tagsList: [],
 			typesList: TypesList,
@@ -27,8 +26,36 @@ export class HomePage extends Component {
 		this.changeDate = this.changeDate.bind(this);
 	}
 
-	async componentDidMount() {
-		//recuperation des tags
+	componentDidMount() {
+		this.loadAllTags();
+		this.loadAllEvents();
+	}
+
+	async loadAllEvents(){
+		await axios
+			.get('https://opendata.paris.fr/api/records/1.0/search/?dataset=que-faire-a-paris-&q=',{
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				params: {
+					'rows': '1000',
+					'refine.address_city': 'Paris'
+				}
+			}).then((response) => {
+				this.setState({ nhits: response.data.nhits })
+				var temp_res = []
+				response.data.records.forEach(element => {
+					if (element.fields.lat_lon) {
+						temp_res.push(element)
+					} else {
+						this.setState({ nhits: this.state.nhits - 1 })
+					}
+				})
+				this.setState({ events: temp_res });
+			}).catch((error) => console.log(error))
+	}
+
+	async loadAllTags(){
 		let newTagsList = [];
 		await axios
 			.get('https://opendata.paris.fr/api/records/1.0/search/?dataset=que-faire-a-paris-&q=', {
@@ -36,10 +63,10 @@ export class HomePage extends Component {
 					'Content-Type': 'application/json'
 				},
 				params: {
-					facet: 'tags'
+					facet: 'tags',
+					'refine.adresse_city': 'Paris'
 				}
-			})
-			.then((response) => {
+			}).then((response) => {
 				response.data.facet_groups[0].facets.map((tags, index) => {
 					newTagsList.push({
 						keyTag: index,
@@ -95,6 +122,7 @@ export class HomePage extends Component {
 			tagsList: tags,
 			selectedDate: this.state.selectedDate
 		});
+		
 		this.searchEventByTags(this.state.tagsList);
 	}
 
