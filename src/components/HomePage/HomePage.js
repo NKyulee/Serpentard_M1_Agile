@@ -7,7 +7,6 @@ import axios from 'axios';
 import DateAndTimePickers from '../layout/DateAndTimePickers';
 import DisplayTypes from './DisplayTypes';
 import DisplayMap from './DisplayMap';
-import { Nbre } from './DisplayMap';
 import TagsList from './TagsList';
 
 import { TypesList } from '../../assets/TypesList';
@@ -20,6 +19,7 @@ export class HomePage extends Component {
 			tagsList: [],
 			typesList: TypesList,
 			events: [],
+			nhits: 0,
 			selectedDate: new Date()
 		};
 
@@ -46,11 +46,11 @@ export class HomePage extends Component {
 						checked: false,
 						name: tags.name
 					});
+					return newTagsList
 				});
 				this.setState({
 					tagsList: newTagsList
 				});
-				//console.log(this.state.tagsList);
 			})
 			.catch((error) => console.log(error));
 	}
@@ -60,19 +60,32 @@ export class HomePage extends Component {
 		var params = new URLSearchParams();
 		tagsSelected.map((tags) => {
 			if (tags.checked === true) params.append('refine.tags', tags.name);
+			return tags
 		});
+
 		await axios
-			.get('https://opendata.paris.fr/api/records/1.0/search/?dataset=que-faire-a-paris-&q=', {
+			.get('https://opendata.paris.fr/api/records/1.0/search/?dataset=que-faire-a-paris-&q=1&rows=1000&refine.address_city=Paris', {
 				headers: {
 					'Content-Type': 'application/json'
 				},
 				params: params
 			})
 			.then((response) => {
-				this.setState({ events: response.data.records });
-				console.log(this.state.events);
+				this.setState({ nhits: response.data.nhits })
+				var temp_res = []
+				response.data.records.forEach(element => {
+					if (element.fields.lat_lon) {
+						temp_res.push(element)
+					} else {
+						this.setState({ nhits: this.state.nhits - 1 })
+					}
+				})
+				this.setState({ events: temp_res });
 			})
-			.catch((error) => console.log(error));
+			.catch((error) => {
+				console.log(error)
+
+			})
 	}
 
 	changeTags(key, status) {
@@ -141,7 +154,7 @@ export class HomePage extends Component {
 					</Box>
 					<Box>
 						<Typography style={Styles.resultBar}>
-							{Nbre} résultats correspondent à votre recherche.
+							{this.state.nhits} résultats correspondent à votre recherche.
 						</Typography>
 					</Box>
 					<Box component="div">
