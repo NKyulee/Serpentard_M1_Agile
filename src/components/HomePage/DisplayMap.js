@@ -6,17 +6,6 @@ import { Icon } from 'leaflet';
 
 import '../../index.css';
 
-const positions = [
-	{ id: 1, latlong: [47.216667, -1.55], popupText: 'Nantes' },
-	{ id: 2, latlong: [48.9582708, 2.8773541], popupText: 'Meaux' },
-	{ id: 3, latlong: [50.6365654, 3.0635282], popupText: 'Lille' },
-	{ id: 4, latlong: [47.4782, 5.76504], popupText: 'Igny' },
-	{ id: 5, latlong: [48.8566969, 2.3514616], popupText: 'Paris' },
-	{ id: 6, latlong: [43.7009358, 7.2683912], popupText: 'Nice' }
-];
-
-export const Nbre = positions.length;
-
 export default function DisplayMap(props) {
 
 	const mark = new Icon({
