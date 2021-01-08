@@ -30,7 +30,6 @@ export default function DisplayTypes(props) {
 					{type.name}
 				</Button>
 				<Popover
-					popupId={type.keyType}
 					{...bindPopover(popupState)}
 					anchorOrigin={{
 						vertical: 'bottom',

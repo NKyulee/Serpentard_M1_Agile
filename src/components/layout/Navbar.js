@@ -3,7 +3,7 @@ import React from 'react';
 import { AppBar, Toolbar, Button, Typography, TextField } from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import axios from 'axios';
+//  import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
 	menuButton: {
@@ -38,10 +38,9 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
-	inputRoot: {
-		color: 'inherit'
-	},
+
 	inputInput: {
+		color: 'inherit',
 		padding: theme.spacing(1, 1, 1, 0),
 		// vertical padding + font size from searchIcon
 		paddingLeft: `calc(1em + ${theme.spacing(7)}px)`,
@@ -86,10 +85,7 @@ export default function Navbar() {
 						<form>
 							<TextField
 								placeholder="Search an event.."
-								classes={{
-									root: classes.inputRoot,
-									input: classes.inputInput
-								}}
+								className={classes.inputInput}
 								id="outlined"
 							/>
 							<Button variant="contained" type="submit" value="Submit">
