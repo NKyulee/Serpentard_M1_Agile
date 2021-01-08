@@ -18,6 +18,7 @@ export class HomePage extends Component {
 			tagsList: [],
 			typesList: TypesList,
 			events: [],
+			nhits: 0,
 			selectedDate: new Date()
 		};
 
@@ -30,30 +31,6 @@ export class HomePage extends Component {
 		this.loadAllEvents();
 	}
 
-	async searchEventByTags(tagsSelected) {
-		//recuperation des evenements par tags
-		var params = new URLSearchParams();
-		tagsSelected.map((tags) => {
-			if (tags.checked === true) params.append('refine.tags', tags.name);
-		});
-		
-		await axios
-			.get('https://opendata.paris.fr/api/records/1.0/search/?dataset=que-faire-a-paris-&q=&refine.address_city=Paris&rows=5', {
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				params: params
-			})
-			.then((response) => {
-				let newEventsList = []
-				//this.setState({ events: [] });
-				newEventsList.push(response.data.records)
-				console.log(newEventsList[0]);
-				this.setState({ events: newEventsList[0] });
-			})
-			.catch((error) => console.log(error));
-	}
-
 	async loadAllEvents(){
 		await axios
 			.get('https://opendata.paris.fr/api/records/1.0/search/?dataset=que-faire-a-paris-&q=',{
@@ -61,18 +38,20 @@ export class HomePage extends Component {
 					'Content-Type': 'application/json'
 				},
 				params: {
-					'rows': '30',
+					'rows': '1000',
 					'refine.address_city': 'Paris'
 				}
 			}).then((response) => {
+				this.setState({ nhits: response.data.nhits })
 				var temp_res = []
-				console.log(response.data.records);
 				response.data.records.forEach(element => {
-					if(element.fields.lat_long) temp_res.push(element)
-				});
-				console.log(temp_res);
+					if (element.fields.lat_lon) {
+						temp_res.push(element)
+					} else {
+						this.setState({ nhits: this.state.nhits - 1 })
+					}
+				})
 				this.setState({ events: temp_res });
-				//console.log(this.state.events);
 			}).catch((error) => console.log(error))
 	}
 
@@ -94,11 +73,46 @@ export class HomePage extends Component {
 						checked: false,
 						name: tags.name
 					});
+					return newTagsList
 				});
 				this.setState({
 					tagsList: newTagsList
 				});
-			}).catch((error) => console.log(error));
+			})
+			.catch((error) => console.log(error));
+	}
+
+	async searchEventByTags(tagsSelected) {
+		//recuperation des evenements par tags
+		var params = new URLSearchParams();
+		tagsSelected.map((tags) => {
+			if (tags.checked === true) params.append('refine.tags', tags.name);
+			return tags
+		});
+
+		await axios
+			.get('https://opendata.paris.fr/api/records/1.0/search/?dataset=que-faire-a-paris-&q=1&rows=1000&refine.address_city=Paris', {
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				params: params
+			})
+			.then((response) => {
+				this.setState({ nhits: response.data.nhits })
+				var temp_res = []
+				response.data.records.forEach(element => {
+					if (element.fields.lat_lon) {
+						temp_res.push(element)
+					} else {
+						this.setState({ nhits: this.state.nhits - 1 })
+					}
+				})
+				this.setState({ events: temp_res });
+			})
+			.catch((error) => {
+				console.log(error)
+
+			})
 	}
 
 	changeTags(key, status) {
@@ -168,7 +182,7 @@ export class HomePage extends Component {
 					</Box>
 					<Box>
 						<Typography style={Styles.resultBar}>
-							{this.state.events.length} résultats correspondent à votre recherche.
+							{this.state.nhits} résultats correspondent à votre recherche.
 						</Typography>
 					</Box>
 					<Box component="div">
