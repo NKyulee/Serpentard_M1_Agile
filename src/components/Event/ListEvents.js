@@ -20,12 +20,12 @@ function ListEvents() {
 	const classes = useStyles();
 
 	return (
-		<div style={{ maxHeight: '51vh' }}>
+		<div style={{ maxHeight: '60vh' }}>
 			<div className={classes.title}>
 				<Typography variant="h6">Let's pretend it's 1990's internet - Soirée spéciale JQuery</Typography>
 			</div>
 			<div className={classes.content}>
-				<Box overflow="scroll" style={{ maxHeight: '40vh' }}>
+				<Box overflow="scroll" style={{ maxHeight: '25vh' }}>
 					<Typography paragraph>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dapibus, velit quis gravida
 						sollicitudin, mi odio egestas metus, in egestas mauris justo sit amet arcu. Aenean id urna sed
