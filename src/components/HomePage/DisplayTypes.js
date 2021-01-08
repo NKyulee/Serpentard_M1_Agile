@@ -1,22 +1,28 @@
 import React from 'react';
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import { Box, Button } from '@material-ui/core';
 
-import { Box, Typography, Popover, Button } from '@material-ui/core';
-import { usePopupState, bindHover, bindPopover } from 'material-ui-popup-state/hooks';
 
-import 'leaflet/dist/leaflet.css';
 
 export default function DisplayTypes(props) {
-	const popupState = usePopupState({
-		variant: 'popover',
-		popupId: 1
-	});
+	console.log(props.types[0])
+	const [anchorEl, setAnchorEl] = React.useState(null);
 
-	const DisplayTypes = [];
+	const handleClick = (event) => {
+	  setAnchorEl(event.currentTarget);
+	};
+  
+	const handleClose = () => {
+	  setAnchorEl(null);
+	};
+
+	const DisplayTypesBar = [];
 
 	const SubType = (subtype) => (
-		<Typography {...bindHover(popupState)} style={{ margin: 10 }}>
+		<MenuItem onClick={handleClick} style={{ margin: 10 }}>
 			{subtype.name}
-		</Typography>
+		</MenuItem>
 	);
 
 	const Type = (type) => {
@@ -26,32 +32,28 @@ export default function DisplayTypes(props) {
 		}
 		return (
 			<div>
-				<Button variant="contained" {...bindHover(popupState)}>
+				<Button aria-controls={type.name} aria-haspopup="true" onClick={handleClick} >
 					{type.name}
 				</Button>
-				<Popover
-					{...bindPopover(popupState)}
-					anchorOrigin={{
-						vertical: 'bottom',
-						horizontal: 'center'
-					}}
-					transformOrigin={{
-						vertical: 'top',
-						horizontal: 'center'
-					}}
-					disableRestoreFocus
+				<Menu
+					id={type.name}
+					anchorEl={anchorEl}
+					keepMounted
+					open={Boolean(anchorEl)}
+					onClose={handleClose}
 				>
+					
 					{DisplaySubTypes}
-				</Popover>
+				</Menu>
 			</div>
 		);
 	};
 	for (let t of props.types) {
-		DisplayTypes.push(Type(t));
+		DisplayTypesBar.push(Type(t));
 	}
 	return (
 		<Box component="div" style={{ display: 'flex' }}>
-			{DisplayTypes}
+			{DisplayTypesBar}
 		</Box>
 	);
 }
