@@ -25,7 +25,7 @@ export default function DisplayTypes(props) {
 			DisplaySubTypes.push(SubType(s));
 		}
 		return (
-			<React.Fragment>
+			<div>
 				<Button variant="contained" {...bindHover(popupState)}>
 					{type.name}
 				</Button>
@@ -44,11 +44,15 @@ export default function DisplayTypes(props) {
 				>
 					{DisplaySubTypes}
 				</Popover>
-			</React.Fragment>
+			</div>
 		);
 	};
 	for (let t of props.types) {
 		DisplayTypes.push(Type(t));
 	}
-	return <Box component="div">{DisplayTypes}</Box>;
+	return (
+		<Box component="div" style={{ display: 'flex' }}>
+			{DisplayTypes}
+		</Box>
+	);
 }
