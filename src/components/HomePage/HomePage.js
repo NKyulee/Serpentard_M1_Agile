@@ -180,13 +180,13 @@ export class HomePage extends Component {
 					<Box component="div">
 						<DisplayTypes types={this.state.typesList} />
 					</Box>
-					<Box>
+					<Box component="div">
+						<DisplayMap position={this.state.events} />
+					</Box><
+						Box>
 						<Typography style={Styles.resultBar}>
 							{this.state.nhits} résultats correspondent à votre recherche.
 						</Typography>
-					</Box>
-					<Box component="div">
-						<DisplayMap position={this.state.events} />
 					</Box>
 				</Box>
 			</Box>

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import 'leaflet/dist/leaflet.css';
 import Box from '@material-ui/core/Box';
 import { Marker, Popup, TileLayer, MapContainer } from 'react-leaflet';
 import { Icon } from 'leaflet';
