@@ -1,11 +1,9 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
+
+import { AppBar, Toolbar, Button, Typography, TextField } from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
 	menuButton: {
@@ -58,9 +56,22 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function SearchAppBar() {
+// const getTitle = () => {
+// 	axios
+// 		.get(
+// 			'https://opendata.paris.fr/api/records/1.0/search/?dataset=que-faire-a-paris-&q=&refine.category=Animations+'
+// 		)
+// 		.then(function(response) {
+// 			console.log(response.data.records[0].fields.title);
+// 			console.log(response.status);
+// 		})
+// 		.catch(function(error) {
+// 			// handle error
+// 			console.log(error);
+// 		});
+// };
+export default function Navbar() {
 	const classes = useStyles();
-
 	return (
 		<div className={classes.root}>
 			<AppBar position="static">
