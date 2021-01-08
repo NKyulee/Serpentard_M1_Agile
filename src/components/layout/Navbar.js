@@ -3,7 +3,6 @@ import React from 'react';
 import { AppBar, Toolbar, Button, Typography, TextField } from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
 	menuButton: {

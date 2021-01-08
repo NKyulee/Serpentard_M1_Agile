@@ -7,7 +7,6 @@ import axios from 'axios';
 import DateAndTimePickers from '../layout/DateAndTimePickers';
 import DisplayTypes from './DisplayTypes';
 import DisplayMap from './DisplayMap';
-import { Nbre } from './DisplayMap';
 import TagsList from './TagsList';
 
 import { TypesList } from '../../assets/TypesList';
@@ -15,7 +14,6 @@ import { TypesList } from '../../assets/TypesList';
 export class HomePage extends Component {
 	constructor() {
 		super();
-
 		this.state = {
 			tagsList: [],
 			typesList: TypesList,
@@ -27,8 +25,58 @@ export class HomePage extends Component {
 		this.changeDate = this.changeDate.bind(this);
 	}
 
-	async componentDidMount() {
-		//recuperation des tags
+	componentDidMount() {
+		this.loadAllTags();
+		this.loadAllEvents();
+	}
+
+	async searchEventByTags(tagsSelected) {
+		//recuperation des evenements par tags
+		var params = new URLSearchParams();
+		tagsSelected.map((tags) => {
+			if (tags.checked === true) params.append('refine.tags', tags.name);
+		});
+		
+		await axios
+			.get('https://opendata.paris.fr/api/records/1.0/search/?dataset=que-faire-a-paris-&q=&refine.address_city=Paris&rows=5', {
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				params: params
+			})
+			.then((response) => {
+				let newEventsList = []
+				//this.setState({ events: [] });
+				newEventsList.push(response.data.records)
+				console.log(newEventsList[0]);
+				this.setState({ events: newEventsList[0] });
+			})
+			.catch((error) => console.log(error));
+	}
+
+	async loadAllEvents(){
+		await axios
+			.get('https://opendata.paris.fr/api/records/1.0/search/?dataset=que-faire-a-paris-&q=',{
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				params: {
+					'rows': '30',
+					'refine.address_city': 'Paris'
+				}
+			}).then((response) => {
+				var temp_res = []
+				console.log(response.data.records);
+				response.data.records.forEach(element => {
+					if(element.fields.lat_long) temp_res.push(element)
+				});
+				console.log(temp_res);
+				this.setState({ events: temp_res });
+				//console.log(this.state.events);
+			}).catch((error) => console.log(error))
+	}
+
+	async loadAllTags(){
 		let newTagsList = [];
 		await axios
 			.get('https://opendata.paris.fr/api/records/1.0/search/?dataset=que-faire-a-paris-&q=', {
@@ -36,10 +84,10 @@ export class HomePage extends Component {
 					'Content-Type': 'application/json'
 				},
 				params: {
-					facet: 'tags'
+					facet: 'tags',
+					'refine.adresse_city': 'Paris'
 				}
-			})
-			.then((response) => {
+			}).then((response) => {
 				response.data.facet_groups[0].facets.map((tags, index) => {
 					newTagsList.push({
 						keyTag: index,
@@ -50,29 +98,7 @@ export class HomePage extends Component {
 				this.setState({
 					tagsList: newTagsList
 				});
-				//console.log(this.state.tagsList);
-			})
-			.catch((error) => console.log(error));
-	}
-
-	async searchEventByTags(tagsSelected) {
-		//recuperation des evenements par tags
-		var params = new URLSearchParams();
-		tagsSelected.map((tags) => {
-			if (tags.checked === true) params.append('refine.tags', tags.name);
-		});
-		await axios
-			.get('https://opendata.paris.fr/api/records/1.0/search/?dataset=que-faire-a-paris-&q=', {
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				params: params
-			})
-			.then((response) => {
-				this.setState({ events: response.data.records });
-				console.log(this.state.events);
-			})
-			.catch((error) => console.log(error));
+			}).catch((error) => console.log(error));
 	}
 
 	changeTags(key, status) {
@@ -82,6 +108,7 @@ export class HomePage extends Component {
 			tagsList: tags,
 			selectedDate: this.state.selectedDate
 		});
+		
 		this.searchEventByTags(this.state.tagsList);
 	}
 
@@ -141,7 +168,7 @@ export class HomePage extends Component {
 					</Box>
 					<Box>
 						<Typography style={Styles.resultBar}>
-							{Nbre} résultats correspondent à votre recherche.
+							{this.state.events.length} résultats correspondent à votre recherche.
 						</Typography>
 					</Box>
 					<Box component="div">
